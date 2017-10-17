@@ -28,7 +28,7 @@ int GetFileSize(FILE *file)
 int main()
 {
 	setlocale(LC_ALL, "Rus");
-
+	
 	printf("Лабораторная работа №6");
 	printf("\nПрограмма сжимает test.txt файл путём замены ");
 	printf("последовательности вхождений одного и того же символа на запись ");
