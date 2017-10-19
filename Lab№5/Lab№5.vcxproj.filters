@@ -16,6 +16,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
+    <Text Include="m.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
+    <Text Include="f.txt">
+      <Filter>Файлы ресурсов</Filter>
+    </Text>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -26,10 +32,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Lab5.c">
+    <ClCompile Include="stdafx.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.c">
+    <ClCompile Include="LW5.c">
       <Filter>Исходные файлы</Filter>
     </ClCompile>
   </ItemGroup>
