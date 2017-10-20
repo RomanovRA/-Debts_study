@@ -10,6 +10,14 @@
 _CRT_SECURE_NO_WARNINGS
 */
 
+typedef struct
+{
+	char name[20];
+	unsigned short groupNumber;
+	unsigned short growth;
+	unsigned short gender;
+}people;	//тип
+
 // Загрузка списков имён для генерации(корректный вариант: Имя1, Имя2, ИмяN.)
 /*
 char* GetList(const char* filename)
@@ -38,8 +46,10 @@ char* GetList(const char* filename)
 }
 */
 //Закончить!
+char *
 
 // Получение размера файла для выделения памяти под его данные
+/*
 int GetFileSize(FILE *file)
 {
 	int sizeFile = -1;
@@ -58,7 +68,7 @@ int GetFileSize(FILE *file)
 
 	return sizeFile;
 }
-
+*/
 
 float GetAverageGrowth(people* hu, const int size, const int group)
 {	
@@ -73,17 +83,9 @@ float GetAverageGrowth(people* hu, const int size, const int group)
 	}
 
 	float avGrowth = sum / i;
+
 		return avGrowth;
 }
-
-typedef struct
-{
-	char name[20];
-	unsigned short groupNumber;
-	unsigned short growth;
-	unsigned short gender;
-}people;	//тип
-
 
 int main()
 {	
