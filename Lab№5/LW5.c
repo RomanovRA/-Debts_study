@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#include <locale.h>
+#include <windows.h>
 /*
 Описать функцию AverHt(группа),
 определяющую средний рост мужчин в некоторой группе людей.
@@ -15,114 +15,72 @@ typedef struct
 	char name[20];
 	unsigned short groupNumber;
 	unsigned short growth;
-	unsigned short gender;
+	char gender;
 }people;	//тип
-
-// Загрузка списков имён для генерации(корректный вариант: Имя1, Имя2, ИмяN.)
-/*
-char* GetList(const char* filename)
-{
-	FILE *file = fopen(filename, "r");
-	int size = GetFileSize(file);
-	char* list = (char *)malloc(sizeof(char) * (size + 1)); 
-	fgets(list, (size + 1), file);	 
-	puts(list);
-	fclose(file);
-	
-	int count = 0;
-	char* temp = list;
-	while (*temp)
-	{
-		if (*temp == ',' || *temp == '.')
-		{
-			count++;
-		}
-		temp++;
-	}
-	
-	
-	printf("\n%s", definiteListPtr);
-	return list;
-}
-*/
-//Закончить!
-char *
-
-// Получение размера файла для выделения памяти под его данные
-/*
-int GetFileSize(FILE *file)
-{
-	int sizeFile = -1;
-
-	if (file)
-	{
-		// Запомнили текущую позицию указателя в файле (смещение от начала).
-		int currentOffset = ftell(file);
-		// Устанавливаем указатель в файле на последний символ.
-		fseek(file, 0, SEEK_END);
-		// Считываем позицию указателя и тем самым получаем размер файла в byte. 
-		sizeFile = ftell(file);
-		// Возвращаем позицию обратно.
-		fseek(file, currentOffset, SEEK_SET);
-	}
-
-	return sizeFile;
-}
-*/
 
 float GetAverageGrowth(people* hu, const int size, const int group)
 {	
-	unsigned int i = 0;
-	unsigned int sum = 0;
+	unsigned int i = 0, count = 0;
+	float avGrowth = 0;
+
 	for (i = 0; i < size; i++)
 	{
-		if (hu[i].groupNumber == group)
+		if (hu[i].groupNumber == group && hu[i].gender == 'm')
 		{
-			sum += hu[i].growth;
+			avGrowth += (float)hu[i].growth;
+			count++;
 		}
 	}
 
-	float avGrowth = sum / i;
-
-		return avGrowth;
+	return (count == 0) ? 0.0 : avGrowth / count;
 }
 
 int main()
 {	
-	setlocale(LC_ALL, "Rus");
+	SetConsoleCP(1251);
+	SetConsoleOutputCP(1251);
+
+	printf("Лабораторная работа №5");
+	printf("\nПрограмма находит средний рост мужчин в некоторой группе людей.");
+	printf("\nДля описания людей используется структура вида: группа, имя, пол, рост.");
+	printf("\nВвод имён людей осуществляется вручную.");
+
 	srand((unsigned int)time(NULL)); //	Инициализируем генератор случайных чисел от текущего времени
 	
-	//char* MaleNames = GetList("m.txt");
-	//Загрузка списков имён					
+	unsigned int size = rand() % 10 + 1; // Количество людей в группе.
 	
+	printf("Количество людей: %d", size);
 	
-	
-	unsigned int size = rand() % 20 + 1; // Количество людей в группе.
-	printf("Debug: %d", size);
 	people* human = (people*)malloc(sizeof(people) * size);
 	// Объявляем указатель структурного типа, определяем как
 	// указатель на область памяти размером, достаточным для группы людей.
 	
 	unsigned int i = 0;
-	for (i = 0; i < size; i++)
+	for (i = 0; i < size; i++)	// Генерация случайных данных.
 	{
 		human[i].growth = rand() % 300 + 50;
-		human[i].groupNumber = rand() % 3;
-		human[i].gender = rand() % 2;
-		printf("\n%d", human[i].gender); //Костыль
+		human[i].groupNumber = rand() % 3 + 1;
+		human[i].gender = (rand() % 2) ? 'm' : 'f';
+		printf("\nВведите имя(%c): ", human[i].gender); //Ручной ввод.
 		gets(human[i].name);
 	}
+
 	i = 0;
 	while (i < size)
 	{
-		printf("\nGender: %d, Name: %s, Growth: %d, Group: %d", human[i].gender,
+		printf("\nПол: %c, Имя: %s, Рост: %d, Группа: %d", human[i].gender,
 			human[i].name, human[i].growth, human[i].groupNumber);
 		i++;
 	}
-
-	printf("\nВыберете желаемую группу(0-3): ");
+	
+	printf("\nВыберете желаемую группу(1-3): ");
 	scanf("%d", &i);
-
+	while (i >= 4 || i <= 0)
+	{
+		printf("\nОшибка. Выберете желаемую группу(1-3): ");
+		scanf("%d", &i);
+	}
+	
 	printf("\nСредний рост в группе №%d: %f", i, GetAverageGrowth(human, size, i));
 	
 	_getch();
