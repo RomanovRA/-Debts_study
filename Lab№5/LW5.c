@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <time.h>
 #include <windows.h>
+#include <conio.h>
+
 /*
 Описать функцию AverHt(группа),
 определяющую средний рост мужчин в некоторой группе людей.
@@ -16,7 +18,7 @@ typedef struct
 	unsigned short groupNumber;
 	unsigned short growth;
 	char gender;
-}people;	//тип
+}people;
 
 float GetAverageGrowth(people* hu, const int size, const int group)
 {	
@@ -49,7 +51,7 @@ int main()
 	
 	unsigned int size = rand() % 10 + 1; // Количество людей в группе.
 	
-	printf("Количество людей: %d", size);
+	printf("Количество людей: %d\n", size);
 	
 	people* human = (people*)malloc(sizeof(people) * size);
 	// Объявляем указатель структурного типа, определяем как
@@ -58,10 +60,10 @@ int main()
 	unsigned int i = 0;
 	for (i = 0; i < size; i++)	// Генерация случайных данных.
 	{
-		human[i].growth = rand() % 300 + 50;
+		human[i].growth = rand() % 210 + 50;
 		human[i].groupNumber = rand() % 3 + 1;
 		human[i].gender = (rand() % 2) ? 'm' : 'f';
-		printf("\nВведите имя(%c): ", human[i].gender); //Ручной ввод.
+		printf("Введите имя(%c): ", human[i].gender); //Ручной ввод.
 		gets(human[i].name);
 	}
 
